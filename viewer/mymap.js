@@ -11,7 +11,7 @@ function myInitMap() {
         center: tokyoStaLatLng,
         // disableDoubleClickZoom: true,
         // draggable: false,
-        zoom: 14
+        zoom: 15
     });
 
     // var goimage = './gopher.png';
