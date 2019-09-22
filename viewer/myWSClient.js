@@ -1,33 +1,65 @@
 //websocket
 console.log('myWSClient start');
 
-var ws_server_url = 'wss://6ozuc52t19.execute-api.ap-northeast-1.amazonaws.com/dev';
-var exampleSocket = new WebSocket(ws_server_url);
+class MyWSClient {
+    
+    ws_object = null;
 
-exampleSocket.onopen = function (event) {
-    console.log('websocket connected :)');
+    constructor() {
+        this.ws_server_url = 'wss://1frpd3s0zl.execute-api.ap-northeast-1.amazonaws.com/dev';
+        this.ws_object = null;
+    }
 
-    //{"action":"sendmessage", "data":"hello world"}
-    let myLatLng = { 'lat': 35.685114, 'lng': 139.752616 };
-    let msgObj = {
-        "action": "sendmessage",
-        "data": JSON.stringify(myLatLng),
-        //"data": "hello world from Chrome"
-    };
-    let msgString = JSON.stringify(msgObj);
-    exampleSocket.send(msgString);
-};
+    init() {
+        this.ws_object = new WebSocket(this.ws_server_url);
 
-exampleSocket.onmessage = function (event) {
-    console.log(event.data);
+        //add event listner
+        this.ws_object.onopen = this.myOnOpen;
+        this.ws_object.onmessage = this.myOnMessage;
+        this.ws_object.onclose = this.myOnClose;        
+    }
 
-    var json = event.data;
-    obj = JSON.parse(json);
+    myOnOpen(event) {
+        //this.ws_object.xxxのイベントになる
+        //thisはthis.ws_objectを挿します
+        console.log('myOnOpen');
 
-    console.log(obj);
+        let myLatLng = { 'lat': 35.685114, 'lng': 139.752616 };
+        let msgObj = {
+            "action": "message",
+            "data": JSON.stringify(myLatLng),
+            //"data": "hello world from Chrome"
+        };
+        let msgString = JSON.stringify(msgObj);
+    
+        let startDate = new Date().getTime();
+        console.log(startDate);
+        console.log("send message to ws server: " + msgString );
+        this.send(msgString);        
+    }
 
-    var result = [obj.lat, obj.lng];
-    transition(result);
+    myOnMessage(event) {
+        console.log('myOnMessage');
+        console.log(new Date());
+        let endDate = new Date().getTime();
+        //console.log('onmessage:' + event.data + ':' + (endDate - startDate) + 'ms');
+    
+        let json = event.data;
+        let obj = JSON.parse(json);
+    
+        console.log(obj);
+    
+        let result = [obj.lat, obj.lng];
+        //transition(result);
+        simpleTransition(result);
+    }
+
+    myOnClose(event) {
+        console.log('myOnClose');
+        myWSClientObj.init();
+    }    
 }
 
-console.log('myWSClient end');
+var myWSClientObj = new MyWSClient();
+myWSClientObj.init();
+

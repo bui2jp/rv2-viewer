@@ -29,21 +29,41 @@ function myInitMap() {
 
      google.maps.event.addListener (mymap, 'click', function(event) {
         var result = [event.latLng.lat(), event.latLng.lng()];
-        transition(result);
+        //transition(result);
         // myTransitionP([gopherRoute[0].lat, gopherRoute[0].lng])
+
         console.log(event.latLng.lat());
         console.log(event.latLng.lng());
+        let myLatLng = { 'lat': event.latLng.lat(), 'lng': event.latLng.lng() };
+        let msgObj = {
+            "action": "message",
+            "data": JSON.stringify(myLatLng),
+            //"data": "hello world from Chrome"
+        };
+        let msgString = JSON.stringify(msgObj);
+    
+        startDate = new Date().getTime();
+        console.log(startDate);
+        console.log("send message to ws server: " + msgString );
+
+        //exampleSocket.send(msgString);
+        myWSClientObj.ws_object.send(msgString);
     });
 }
 
 var kitteLatLng = { lat: 35.67975, lng: 139.764583 }; 
-var numDeltas = 100;
-var delay = 10; //milliseconds
+var numDeltas = 30;
+var delay = (1000/30); //milliseconds
 var i = 0;
 var deltaLat;
 var deltaLng;
 
 var position = [kitteLatLng.lat, kitteLatLng.lng];
+
+function simpleTransition(result){
+    var latlng = new google.maps.LatLng(result[0], result[1]);
+    marker.setPosition(latlng);
+}
 
 function transition(result){
     i = 0;
@@ -59,11 +79,13 @@ function moveMarker(){
     position[0] += deltaLat;
     position[1] += deltaLng;
     var latlng = new google.maps.LatLng(position[0], position[1]);
-    marker.setTitle("Latitude:"+position[0]+" | Longitude:"+position[1]);
+    var title = "[" + i + "] Latitude:"+position[0]+" | Longitude:"+position[1];
+    marker.setTitle(title);
+    //console.log(title);
     marker.setPosition(latlng);
     if(i!=numDeltas){
         i++;
-        console.log('setTimeout :' + i);
+        //console.log('setTimeout :' + i);
         setTimeout(moveMarker, delay);
     }
 }

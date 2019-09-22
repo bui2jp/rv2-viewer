@@ -1,34 +1,71 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
-    <meta charset="utf-8">
-    <style>
-      /* Always set the map height explicitly to define the size of the div
+
+<head>
+  <title>Simple Map</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
+    /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
-      #map {
-        height: 70%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
+    #map {
+      height: 70%;
+    }
 
-    <!-- google map  -->
-    <div id="map"></div>
+    /* Optional: Makes the sample page fill the window. */
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+  <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+    crossorigin="anonymous"></script>
+</head>
 
-    <!-- Button  -->
-    <button id="btn1">test1</button>
+<body>
 
-    <script src="./mymap.js"></script>    
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCM-Mj0L37lr6HHhkNgB5H9EZCHPPNYfgQ&callback=myInitMap"></script>
-    <!-- <script src="./myGopherRoute.js"></script> -->
-    <script src="./myWSClient.js"></script>    
-  </body>
+  <!-- google map  -->
+  <div id="map"></div>
+
+  <!-- Button  -->
+  <button id="btn01">test1</button>
+
+  <script src="./mymap.js"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCM-Mj0L37lr6HHhkNgB5H9EZCHPPNYfgQ&callback=myInitMap"></script>
+  <!-- <script src="./myGopherRoute.js"></script> -->
+  <script src="./myWSClient.js"></script>
+
+  <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js'></script> -->
+  <!-- <script src="/socket.io/socket.io.js"></script> -->
+  <!-- <script src='./node_modules/socket.io-client/dist/socket.io.js'></script> -->
+  <script>
+    // var socket = io('https://1frpd3s0zl.execute-api.ap-northeast-1.amazonaws.com',
+    //   { path: '/dev' }
+    // );
+
+    // var wss_server_url = 'wss://1frpd3s0zl.execute-api.ap-northeast-1.amazonaws.com';
+    // //var socket = io();
+    // const io = io(wss_server_url, {
+    //   path: '/dev2'
+    // });
+
+    // io.on('connection', function (socket) {
+    //   console.log('connection');
+    //   // socket.on('chat message', function (msg) {
+    //   //     io.emit('chat message', msg);
+    //   // });
+    // });
+
+
+  </script>
+
+  <script src='./mySocketIOClient.js'></script>
+  <script src='./myTestButton.js'></script>
+
+  
+</body>
+
 </html>
