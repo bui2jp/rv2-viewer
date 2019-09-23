@@ -1,0 +1,25 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+target 'rv2-ios-client' do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for rv2-ios-client
+  pod "SwiftyJSON", ">= 2.2"
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'  
+  pod "Alamofire"
+  pod 'RxSwift'
+  pod 'RxCocoa'
+  pod 'RealmSwift'
+  pod 'SwiftLint'
+
+  target 'rv2-ios-clientTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end
