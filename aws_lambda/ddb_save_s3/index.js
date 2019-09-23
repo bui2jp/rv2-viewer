@@ -1,5 +1,6 @@
 var aws = require('aws-sdk');
 var s3 = new aws.S3({ apiVersion: '2006-03-01' });
+var uuid = require('uuid');
 
 exports.handler = async (event, context) => {
     console.log('ws_save_latlon_s3 start ddb record will be in s3');
@@ -7,11 +8,12 @@ exports.handler = async (event, context) => {
     console.log(JSON.stringify(event.Records[0].eventName));
     console.log(JSON.stringify(event.Records[0].dynamodb.NewImage));
     
-    const inputedValue = JSON.stringify(JSON.stringify(event.Records[0].dynamodb.NewImage));
+    const inputedValue = JSON.stringify(event.Records[0].dynamodb.NewImage);
     
     console.log('start s3.putObject :' + inputedValue);
     //Key will be fileName in s3 bucket
-    var params = {Bucket: 'ws-latlon-history', Key: 'myKey', Body: inputedValue};
+    const myS3Key = uuid.v1();
+    var params = {Bucket: 'ws-latlon-history', Key: myS3Key, Body: inputedValue};
     s3.putObject(params, function(err, data) {
         if (err){
             console.log("err:" + err)

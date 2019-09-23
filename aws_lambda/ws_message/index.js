@@ -57,7 +57,13 @@ exports.handler = async (event, context) => {
     return { statusCode: 500, body: e.stack };
   }
 
-  
+  /*
+    evaluate and notification
+  */
+  evaluation01();
+  evaluation02();
+  evaluation03();
+
   
   /*
     add record to Dynamo db
@@ -78,14 +84,17 @@ exports.handler = async (event, context) => {
   console.log('DDB.putItem end');
   */
 
-  console.log( 'ddb put ... start : ' + postData);    
+  console.log( 'ddb put ... start : ' + postData + ':' + new Date().getTime());
+  var currentTime = new Date().getTime();
   var latlng = JSON.parse(postData);
   var params = {
     TableName: process.env.TABLE_NAME_LATLON_HIST,
     Item:{
-      id : 'test2',
+      id : uuid.v1(),
+      current_tm : currentTime,
       lat: latlng.lat,
-      lon: latlng.lng
+      lon: latlng.lng,
+      remark: 'a'
     }
   };
   await ddb.put(params).promise();
@@ -95,3 +104,14 @@ exports.handler = async (event, context) => {
   return { statusCode: 200, body: 'Data sent.' };
 };
 
+const evaluation01 = () => {
+  console.log('evaluation01');
+};
+
+const evaluation02 = () => {
+  console.log('evaluation02');
+};
+
+const evaluation03 = () => {
+  console.log('evaluation03');
+};
