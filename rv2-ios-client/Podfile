@@ -16,6 +16,7 @@ target 'rv2-ios-client' do
   pod 'RxCocoa', '~> 4.0'
   pod 'RealmSwift'
   pod 'SwiftLint'
+  pod 'Starscream', '~> 3.0.2'
 
   target 'rv2-ios-clientTests' do
     inherit! :search_paths
